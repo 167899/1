@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sample Document</title>
+    <meta charset="UTF-8" />
+    <style>
+        div {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="/home">Home</a>
+    <a href="/about">About</a>
+    <a href="/contacts">Contacts</a>
+    <div id="home">Home</div>
+    <div id="about">About</div>
+    <div id="contacts">Contacts</div>
+    <script>
+      var as = document.getElementsByTagName('a');
+      for(var i = 0; i < as.length; i++) {
+        as[i].addEventListener('click', function (e) {
+          e.preventDefault();
+          history.pushState({}, null, this.href);
+          spa();
+        }, false);
+      }
+
+
+        var spa = function () {
+          var hash = location.pathname.replace('/', '');
+          console.log(hash);
+          var divs = document.getElementsByTagName('DIV');
+          for(var i = 0; i < divs.length; i++) {
+            divs[i].className = '';
+          }
+          document.getElementById(hash).className = 'visible'
+        }
+        spa();
+
+        window.onpopstate = spa;
+    </script>
+</body>
+</html>
